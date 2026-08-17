@@ -17,3 +17,29 @@ on:
       paths:
         - 'envs/dev/**'
         - 'modules/**'
+    workflow_dispatch:
+      inputs:
+        action:
+          description: 'Terraform action to perform'
+          required: true
+          default: 'plan'
+          type: choice
+          options: [plan, apply, destroy]
+        confirm_destroy:
+          description: 'Confirm destroy action (type "yes" to confirm)'
+          required: false
+          default: ''
+permissions:
+  contents: read
+
+env:
+  TF_VERSION: '1.15.8'
+  AWS_REGION: 'us-east-1'
+
+# Prevent parallel runs on the same branch — avoids state conflicts
+concurrency:
+  group: 'terraform-${{ github.ref }}'
+  cancel-in-progress: false      # wait, don't cancel — safer for Terraform
+
+
+
