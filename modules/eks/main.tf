@@ -14,6 +14,7 @@ module "eks" {
   enable_irsa                              = true
   enable_cluster_creator_admin_permissions = true
 
+  # Only actual EKS add-ons go in here
   addons = {
     vpc-cni = {
       most_recent    = true
@@ -28,20 +29,19 @@ module "eks" {
     eks-pod-identity-agent = {
       most_recent = true
     }
+  }
 
-    eks_managed_node_groups = {
-      main = {
-        desired_capacity = var.desired_size
-        max_capacity     = var.max_size
-        min_capacity     = var.min_size
-
-        instance_types = var.instance_types
-      }
+  eks_managed_node_groups = {
+    main = {
+      desired_size   = var.desired_size
+      max_size       = var.max_size
+      min_size       = var.min_size
+      instance_types = var.instance_types
     }
+  }
 
-    tags = {
-      Project = var.project
-      Env     = var.env
-    }
+  tags = {
+    Project = var.project
+    Env     = var.env
   }
 }
