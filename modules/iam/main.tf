@@ -49,7 +49,7 @@ resource "aws_iam_policy" "eso_secrets_policy" {
           "secretsmanager:DescribeSecret",
           "secretsmanager:ListSecrets"
         ]
-        Resource = "arn:aws:secretsmanager:*:${var.aws_account_id}:secret:pharma/*"
+        Resource = "arn:aws:secretsmanager:*:${var.aws_account_id}:secret:/pharma/*"
       }
     ]
   })
