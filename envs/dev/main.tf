@@ -29,7 +29,7 @@ module "eks" {
   vpc_id             = module.vpc.vpc_id
   subnet_ids         = module.vpc.private_subnets
   kubernetes_version = "1.33"
-  instance_types     = ["t3.medium"]
+  instance_types     = ["c7i-flex.large"]
   min_size           = 1
   max_size           = 3
   desired_size       = 2
