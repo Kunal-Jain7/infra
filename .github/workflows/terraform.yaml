@@ -87,8 +87,6 @@ jobs:
             -var="github_org=${{ vars.GH_ORG }}" \
             -out=tfplan
 
-        continue-on-error: true
-
       - name: Check Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
@@ -104,7 +102,7 @@ jobs:
         with:
           name: tfplan
           path: envs/dev/tfplan
-          retention-days: 5
+          retention-days: 1
         
 # ── Apply ─────────────────────────────────────────────────────────────────
   apply:
